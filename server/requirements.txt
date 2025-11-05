@@ -1,0 +1,6 @@
+fastapi>=0.103.0
+uvicorn[standard]>=0.23.0
+modelscope>=1.13.0
+soundfile>=0.12.1
+torchaudio>=2.3.0
+cosyvoice>=0.0.0

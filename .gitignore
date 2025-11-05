@@ -1,0 +1,53 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ---- Project specific ignores ----
+# Python virtual environments
+venv/
+venv311/
+
+# Python cache
+server/__pycache__/
+**/__pycache__/
+.pytest_cache/
+
+# Pip temporary packages/cache
+tmp_pip/
+
+# Large pretrained model files (keep locally)
+pretrained_models/
+
+# Local audio library (large media files kept out of repo)
+音频/
+
+# Environment variables
+.env
+
+# Misc OS files
+Thumbs.db
+
+# Vite/coverage caches
+.vite/
+coverage/
