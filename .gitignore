@@ -40,7 +40,9 @@ tmp_pip/
 pretrained_models/
 
 # Local audio library (large media files kept out of repo)
+# Ignore root-level 音频/ but allow audio under public for app runtime
 音频/
+!public/音频/
 
 # Environment variables
 .env
