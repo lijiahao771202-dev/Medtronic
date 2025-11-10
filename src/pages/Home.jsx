@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import BreathingBall from '../components/BreathingBall.jsx'
 import MoodModal from '../components/MoodModal.jsx'
 import { addSession, formatDateStr } from '../utils/storage.js'
+import styles from './Home.module.css'; // 导入 CSS Modules
 
 export default function Home() {
   const [minutes, setMinutes] = useState(10)
@@ -33,6 +34,7 @@ export default function Home() {
 
   function start() {
     setRunning(true)
+    setSecondsLeft(minutes * 60)
   }
 
   function stop() {
@@ -58,10 +60,10 @@ export default function Home() {
   return (
     <div className="home-page">
       <section className="breathing-section">
-        <BreathingBall running={running} />
+        <div className={styles.glassPanel}> {/* 应用液态玻璃面板样式 */}
+          <BreathingBall running={running} minutes={minutes} showSliderValue={showSliderValue} />
 
-        <div className="controls-inline">
-          <div className="range">
+          <div className="controls-inline">
             {!running ? (
               <>
                 <input
@@ -76,11 +78,11 @@ export default function Home() {
                   onTouchStart={() => setShowSliderValue(true)} // 触摸开始时显示
                   onTouchEnd={() => setShowSliderValue(false)}   // 触摸结束时隐藏
                 />
-                {showSliderValue && <div className="range-value">{minutes} 分钟</div>} {/* 根据状态显示/隐藏 */}
+                {/* {showSliderValue && <div className="range-value">{minutes} 分钟</div>} */}
               </>
             ) : (
               <>
-                <div className="progress" title={display}>
+                <div className={styles.progress} title={display}>
                   <div
                     className="progress-fill"
                     style={{ width: `${(secondsLeft / (minutes * 60)) * 100}%` }}
@@ -96,7 +98,7 @@ export default function Home() {
               <button className="btn-secondary" onClick={stop}>结束</button>
             )}
           </div>
-        </div>
+        </div> {/* Close glassPanel div */}
       </section>
 
       <MoodModal

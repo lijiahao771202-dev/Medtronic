@@ -1,0 +1,33 @@
+uid=34_0 RootWebArea "medetatonnow" url="http://localhost:5173/agent"
+  uid=34_1 navigation
+    uid=34_2 link "首页" url="http://localhost:5173/"
+      uid=34_3 StaticText "首页"
+    uid=34_4 link "智能体" url="http://localhost:5173/agent"
+      uid=34_5 StaticText "智能体"
+    uid=34_6 link "统计" url="http://localhost:5173/stats"
+      uid=34_7 StaticText "统计"
+    uid=34_8 link "类型" url="http://localhost:5173/type"
+      uid=34_9 StaticText "类型"
+  uid=34_10 heading "智能体（脚本生成与引导）" level="3"
+  uid=34_11 StaticText "在这里，你可以输入提示词让智能体生成冥想脚本。"
+  uid=34_12 heading "系统提示词 (System Prompt):" level="4"
+  uid=34_13 textbox "设置智能体的角色和指令，例如：你是一个冥想脚本生成助手..." multiline value="你是一个冥想脚本生成助手，请根据用户提供的提示词生成一段冥想脚本。"
+  uid=34_14 heading "用户提示词 (User Prompt):" level="4"
+  uid=34_15 textbox "输入你的冥想脚本提示词，例如：生成一段关于放松身心的冥想脚本..." multiline
+  uid=34_16 button "生成冥想脚本"
+  uid=34_17 heading "生成的冥想脚本:" level="4"
+  uid=34_18 StaticText "现在，请轻轻闭上双眼，感受身体的每一个部分。让呼吸自然而深入，每一次吸气都带来平静，每一次呼气都带走紧张。"
+  uid=34_19 StaticText "音色："
+  uid=34_20 combobox "音色：" haspopup="menu"
+  uid=34_21 button "用 CosyVoice 朗读"
+  uid=34_22 Audio "无法播放媒体。" disableable disabled
+    uid=34_23 button "播放" disableable disabled
+    uid=34_24 slider "音频时间进度条" description="总时间：0:00" disableable disabled orientation="horizontal" value="0" valuemax="100" valuemin="0" valuetext="å·²æ­æ¾æ¶é´ï¼0:00"
+    uid=34_25 button "静音" disableable disabled
+    uid=34_26 button "显示更多媒体控件" description="更多选项" haspopup="menu"
+  uid=34_27 heading "脚本引导" level="3"
+  uid=34_28 StaticText "当前为“文字引导模式”。如果你在本地另行部署了 TTS，请直接在你的系统中播放生成的文本或将音频接入到本应用外部播放链路。"
+  uid=34_29 button "开始引导"
+  uid=34_30 button "重置"
+  uid=34_31 StaticText "现在，请轻轻闭上双眼，感受身体的每一个部分。"
+  uid=34_32 StaticText "让呼吸自然而深入，每一次吸气都带来平静，每一次呼气都带走紧张。"

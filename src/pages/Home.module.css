@@ -1,0 +1,90 @@
+.glassPanel {
+  background-color: rgba(255, 255, 255, 0.15); /* 半透明白色背景 */
+  backdrop-filter: blur(10px); /* 模糊效果 */
+  border-radius: 20px; /* 圆角 */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* 细边框 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+  padding: 20px; /* 内边距 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px; /* 增加间距 */
+  width: 90%; /* 调整宽度 */
+  max-width: 800px; /* 最大宽度 */
+  margin: 40px auto 0 auto; /* 增加顶部外边距 */
+}
+
+.glassPanel input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3); /* 轨道背景 */
+  border-radius: 5px;
+  outline: none;
+  transition: opacity .2s;
+}
+
+.glassPanel input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.7); /* 滑块头背景 */
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.glassPanel input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.glassPanel .range-value {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1em;
+  margin-top: 5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.glassPanel .progress {
+  width: 95%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-grow: 1;
+  display: flex;
+}
+
+.glassPanel .progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* 渐变色 */
+  border-radius: 5px;
+}
+
+.glassPanel .phase {
+  color: #f0f0f0; /* 稍微偏白的颜色，更好地融合荧光 */
+  text-shadow:
+    0 0 10px #fff, /* 内部白色光晕 */
+    0 0 20px #ff007f, /* 亮粉色荧光 */
+    0 0 30px #ff007f,
+    0 0 40px #ff007f,
+    0 0 50px #ff007f,
+    0 0 60px #ff007f,
+    0 0 70px #ff007f;
+  font-size: 2em; /* 增大字体 */
+  font-weight: bold;
+  letter-spacing: 2px; /* 增加字间距 */
+}
+
+.actions {
+  margin-top: 15px; /* 为按钮添加顶部外边距 */
+}

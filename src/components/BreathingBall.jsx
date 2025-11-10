@@ -12,7 +12,7 @@ function easeInOutSine(t) {
   return -(Math.cos(Math.PI * t) - 1) / 2
 }
 
-export default function BreathingBall({ running }) {
+export default function BreathingBall({ running, minutes, showSliderValue }) {
   const [phaseIndex, setPhaseIndex] = useState(0)
   const [secondsLeft, setSecondsLeft] = useState(PHASES[0].seconds)
   const [scale, setScale] = useState(0.9)
@@ -81,7 +81,9 @@ export default function BreathingBall({ running }) {
         aria-label="breathing ball"
       >
         <div className="ball-content">
-          <div className="phase">{current.label}</div>
+          <div className="phase">
+            {!running ? `${minutes} 分钟` : current.label}
+          </div>
         </div>
       </div>
     </div>

@@ -23,11 +23,6 @@ function Type() {
       path: '/meditation/rain-meditation',
     },
     {
-      name: '正念静坐',
-      description: '通过专注观察呼吸的进出，训练心神集中和觉知。',
-      path: '/meditation/mindful-sitting',
-    },
-    {
       name: '3分钟呼吸空间',
       description: '一个简短的练习，帮助你在忙碌中找到片刻的宁静和专注。',
       path: '/meditation/three-minute-breathing-space',
