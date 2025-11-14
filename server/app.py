@@ -80,7 +80,10 @@ def parse_ssml(ssml_text: str, default_voice: str):
     walk(root, {})
     return segments
 
+
 async def tts_handler(websocket, path):
+    print(f"tts_handler received path: {path}")
+    print(f"tts_handler received connection")
     print("WebSocket connection established")
     async for message in websocket:
         print(f"Received message: {message}")
@@ -105,19 +108,33 @@ async def tts_handler(websocket, path):
                 # 直接将原始 SSML 文本交给 edge-tts，让服务端引擎处理 <break>/<prosody>/<voice> 等标签，获得原生停顿与参数效果
                 try:
                     communicate = edge_tts.Communicate(text, voice)
+                    print(f"SSML: communicate object created for text: {text[:50]}...")
                     async for chunk in communicate.stream():
+                        print(f"SSML: Received chunk type: {chunk['type']}")
                         if chunk["type"] == "audio":
+                            # Debug: Save audio chunk to file
+                            with open("c:\\medetation\\server\\temp_audio_debug.mp3", "ab") as f:
+                                f.write(chunk["data"])
                             await websocket.send(chunk["data"])
-                            print("Sent audio chunk")
+                            print("SSML: Sent audio chunk")
+                        elif chunk["type"] == "end":
+                            print("SSML: End of stream received.")
                 except Exception as e:
                     print(f"SSML synthesis error, fallback strip tags: {e}")
                     stripped = re.sub(r"<[^>]+>", " ", text)
                     try:
                         communicate = edge_tts.Communicate(stripped, voice)
+                        print(f"SSML Fallback: communicate object created for text: {stripped[:50]}...")
                         async for chunk in communicate.stream():
+                            print(f"SSML Fallback: Received chunk type: {chunk['type']}")
                             if chunk["type"] == "audio":
+                                # Debug: Save audio chunk to file
+                                with open("c:\\medetation\\server\\temp_audio_debug.mp3", "ab") as f:
+                                    f.write(chunk["data"])
                                 await websocket.send(chunk["data"])
-                                print("Sent audio chunk")
+                                print("SSML Fallback: Sent audio chunk")
+                            elif chunk["type"] == "end":
+                                print("SSML Fallback: End of stream received.")
                     except Exception as e2:
                         print(f"Fallback synthesis error: {e2}")
                 # 合成完成后主动关闭连接
@@ -141,10 +158,17 @@ async def tts_handler(websocket, path):
 
                 try:
                     communicate = edge_tts.Communicate(text, voice, **kwargs)
+                    print(f"Plain Text: communicate object created for text: {text[:50]}...")
                     async for chunk in communicate.stream():
+                        print(f"Plain Text: Received chunk type: {chunk['type']}")
                         if chunk["type"] == "audio":
+                            # Debug: Save audio chunk to file
+                            with open("c:\\medetation\\server\\temp_audio_debug.mp3", "ab") as f:
+                                f.write(chunk["data"])
                             await websocket.send(chunk["data"])
-                            print("Sent audio chunk")
+                            print("Plain Text: Sent audio chunk")
+                        elif chunk["type"] == "end":
+                            print("Plain Text: End of stream received.")
                 except Exception as e:
                     print(f"Synthesis error: {e}")
                 try:
@@ -159,7 +183,9 @@ async def tts_handler(websocket, path):
             except Exception:
                 pass
 
-start_server = websockets.serve(tts_handler, "localhost", 8008)
+async def main():
+    async with websockets.serve(tts_handler, "localhost", 8008):
+        await asyncio.Future()  # run forever
 
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+if __name__ == "__main__":
+    asyncio.run(main())

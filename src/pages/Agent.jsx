@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import OpenAI from 'openai';
 // 已移除旧的文字逐句引导组件（NarrationPlayer），统一使用 Web Audio 精确调度的引导播放
 
 export default function Agent() {
+  const navigate = useNavigate();
   const [prompt, setPrompt] = useState('');
   const [generatedText, setGeneratedText] = useState('现在，请轻轻闭上双眼，感受身体的每一个部分。让呼吸自然而然深入，每一次吸气都带来平静，每一次呼气都带走紧张。');
   const [loading, setLoading] = useState(false);
@@ -45,7 +47,7 @@ export default function Agent() {
   useEffect(() => {}, []);
 
   const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_DEEPSEEK_API_KEY,
+    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
     baseURL: 'https://api.deepseek.com',
     dangerouslyAllowBrowser: true, // 允许在浏览器环境中运行
   });
@@ -439,122 +441,82 @@ export default function Agent() {
         }}>
         {/* Card 1: 清晨正念 */}
         <div
-          className="meditation-card rounded-[18px] p-[14px] w-[220px] hover:bg-white/30 transition-all duration-300 bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.28)] backdrop-blur-lg backdrop-saturate-[1.3] shadow-[0_10px_30px_rgba(0,0,0,0.25),inset_0_1px_rgba(255,255,255,0.25)]"
-          onClick={() => generateMeditationScript("清晨正念：唤醒身心的10分钟晨间冥想")}
+          className="meditation-card"
+          onClick={() => navigate('/agent/generate/morning')}
         >
           <h3 className="font-bold text-lg text-gray-800 mb-2">清晨正念</h3>
           <p className="text-gray-600 text-sm mb-4">唤醒身心的10分钟晨间冥想</p>
-          <button
-            className="bg-white/40 border border-white/50 rounded-full px-4 py-2 text-sm text-gray-800 hover:bg-white/60 transition-all mt-4"
-          >
-            {loading ? '请等待...' : '生成脚本'}
-          </button>
         </div>
         
         {/* Card 2: 睡前正念 */}
         <div
-          className="meditation-card rounded-[18px] p-[14px] w-[220px] hover:bg-white/30 transition-all duration-300 bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.28)] backdrop-blur-lg backdrop-saturate-[1.3] shadow-[0_10px_30px_rgba(0,0,0,0.25),inset_0_1px_rgba(255,255,255,0.25)]"
-          onClick={() => generateMeditationScript("睡前正念：帮助入睡的15分钟放松冥想")}
+          className="meditation-card"
+          onClick={() => navigate('/agent/generate/sleep')}
         >
           <h3 className="font-bold text-lg text-gray-800 mb-2">睡前正念</h3>
           <p className="text-gray-600 text-sm mb-4">帮助入睡的15分钟放松冥想</p>
-          <button
-            className="bg-white/40 border border-white/50 rounded-full px-4 py-2 text-sm text-gray-800 hover:bg-white/60 transition-all mt-4"
-          >
-            {loading ? '请等待...' : '生成脚本'}
-          </button>
         </div>
         
         {/* Card 3: 工作间隙正念 */}
         <div
-          className="meditation-card rounded-[18px] p-[14px] w-[220px] hover:bg-white/30 transition-all duration-300 bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.28)] backdrop-blur-lg backdrop-saturate-[1.3] shadow-[0_10px_30px_rgba(0,0,0,0.25),inset_0_1px_rgba(255,255,255,0.25)]"
-          onClick={() => generateMeditationScript("工作间隙正念：缓解压力的5分钟快速冥想")}
+          className="meditation-card"
+          onClick={() => navigate('/agent/generate/work-break')}
         >
           <h3 className="font-bold text-lg text-gray-800 mb-2">工作间隙正念</h3>
           <p className="text-gray-600 text-sm mb-4">缓解压力的5分钟快速冥想</p>
-          <button
-            className="bg-white/40 border border-white/50 rounded-full px-4 py-2 text-sm text-gray-800 hover:bg-white/60 transition-all mt-4"
-          >
-            {loading ? '请等待...' : '生成脚本'}
-          </button>
         </div>
         
         {/* Card 4: 情绪调节正念 */}
         <div
-          className="meditation-card rounded-[18px] p-[14px] w-[220px] hover:bg-white/30 transition-all duration-300 bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.28)] backdrop-blur-lg backdrop-saturate-[1.3] shadow-[0_10px_30px_rgba(0,0,0,0.25),inset_0_1px_rgba(255,255,255,0.25)]"
-          onClick={() => generateMeditationScript("情绪调节正念：平复焦虑的12分钟情绪冥想")}
+          className="meditation-card"
+          onClick={() => navigate('/agent/generate/emotion')}
         >
           <h3 className="font-bold text-lg text-gray-800 mb-2">情绪调节正念</h3>
           <p className="text-gray-600 text-sm mb-4">平复焦虑的12分钟情绪冥想</p>
-          <button
-            className="bg-white/40 border border-white/50 rounded-full px-4 py-2 text-sm text-gray-800 hover:bg-white/60 transition-all mt-4"
-          >
-            {loading ? '请等待...' : '生成脚本'}
-          </button>
         </div>
         
         {/* Card 5: 身体扫描正念 */}
         <div
-          className="meditation-card rounded-[18px] p-[14px] w-[220px] hover:bg-white/30 transition-all duration-300 bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.28)] backdrop-blur-lg backdrop-saturate-[1.3] shadow-[0_10px_30px_rgba(0,0,0,0.25),inset_0_1px_rgba(255,255,255,0.25)]"
-          onClick={() => generateMeditationScript("身体扫描正念：释放紧张的16分钟身体冥想")}
+          className="meditation-card"
+          onClick={() => navigate('/agent/generate/body-scan')}
         >
           <h3 className="font-bold text-lg text-gray-800 mb-2">身体扫描正念</h3>
           <p className="text-gray-600 text-sm mb-4">释放紧张的16分钟身体冥想</p>
-          <button
-            className="bg-white/40 border border-white/50 rounded-full px-4 py-2 text-sm text-gray-800 hover:bg-white/60 transition-all mt-4"
-          >
-            {loading ? '请等待...' : '生成脚本'}
-          </button>
         </div>
         
         {/* Card 6: 呼吸空间正念 */}
         <div
-          className="meditation-card rounded-[18px] p-[14px] w-[220px] hover:bg-white/30 transition-all duration-300 bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.28)] backdrop-blur-lg backdrop-saturate-[1.3] shadow-[0_10px_30px_rgba(0,0,0,0.25),inset_0_1px_rgba(255,255,255,0.25)]"
-          onClick={() => generateMeditationScript("呼吸空间正念：重置状态的3分钟呼吸冥想")}
+          className="meditation-card"
+          onClick={() => navigate('/agent/generate/breathing-space')}
         >
           <h3 className="font-bold text-lg text-gray-800 mb-2">呼吸空间正念</h3>
           <p className="text-gray-600 text-sm mb-4">重置状态的3分钟呼吸冥想</p>
-          <button
-            className="bg-white/40 border border-white/50 rounded-full px-4 py-2 text-sm text-gray-800 hover:bg-white/60 transition-all mt-4"
-          >
-            {loading ? '请等待...' : '生成脚本'}
-          </button>
         </div>
 
         {/* Card 7: 慈悲正念 */}
         <div
-          className="meditation-card rounded-xl p-4 w-[220px] hover:bg-white/30 transition-all duration-300 bg-white/40 border border-white/80"
-          onClick={() => generateMeditationScript("慈悲正念：培养对他人的善意和同情心")}
+          className="meditation-card"
+          onClick={() => navigate('/agent/generate/loving-kindness')}
         >
           <h3 className="font-bold text-lg text-gray-800 mb-2">慈悲正念</h3>
           <p className="text-gray-600 text-sm mb-4">培养对他人的善意和同情心</p>
-          <button
-            className="bg-white/40 border border-white/50 rounded-full px-4 py-2 text-sm text-gray-800 hover:bg-white/60 transition-all mt-4"
-          >
-            {loading ? '请等待...' : '生成脚本'}
-          </button>
         </div>
 
         {/* Card 8: 感恩正念 */}
         <div
-          className="meditation-card rounded-xl p-4 w-[220px] hover:bg-white/30 transition-all duration-300 bg-white/40 border border-white/80"
-          onClick={() => generateMeditationScript("感恩正念：专注于生活中的美好事物")}
+          className="meditation-card"
+          onClick={() => navigate('/agent/generate/gratitude')}
         >
           <h3 className="font-bold text-lg text-gray-800 mb-2">感恩正念</h3>
           <p className="text-gray-600 text-sm mb-4">专注于生活中的美好事物</p>
-          <button
-            className="bg-white/40 border border-white/50 rounded-full px-4 py-2 text-sm text-gray-800 hover:bg-white/60 transition-all mt-4"
-          >
-            {loading ? '请等待...' : '生成脚本'}
-          </button>
         </div>
       </div>
       <div className="deepseek-generator">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {/* <h4 style={{ margin: 0 }}>系统提示词</h4> */}
           <button className="btn-secondary" onClick={() => setShowSystemPrompt(s => !s)}>
             {showSystemPrompt ? '隐藏系统提示词' : '编辑系统提示词'}
           </button>
+          <button className="btn-primary" onClick={() => window.location.href = '/agent/voice'}>开始语音通话</button>
         </div>
         {showSystemPrompt && (
           <textarea
